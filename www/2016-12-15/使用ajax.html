@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		用户名：<input name="user" type="text"/><span id="s"></span><br /><br />
+		<input type="button" value="提交" id="btn"/>
+		<script>
+			var btn=document.getElementById("btn");
+			var s=document.getElementById("s");
+			var user=document.getElementsByTagName("input")[0];
+			user.onblur=function(){
+				var val=user.value;
+				var ajax=new XMLHttpRequest();
+				ajax.open('get','php/get.php?user='+encodeURI(val),true);
+				ajax.send();
+				ajax.onload=function(){
+					s.innerHTML=ajax.responseText;
+					console.log(ajax.responseText)
+					//ajax.responseText:根据我输入的内容，后端返回给我的数据
+				}
+			}
+		</script>
+	</body>
+</html>

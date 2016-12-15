@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		用户名：<input name="user" type="text"/><span id="s"></span><br /><br />
+		<input type="button" value="提交" id="btn"/>
+		<script>
+			var s=document.getElementById("s");
+			var user=document.getElementsByTagName("input")[0];
+			user.onblur=function(){
+				var val=user.value;
+				var ajax=new XMLHttpRequest;
+				ajax.open("post","php/get_json.php?user="+encodeURI(val));
+				ajax.send();
+				ajax.onload=function(){
+					var json=eval("("+ajax.responseText+")")
+					
+					if(json.code){
+						user.style.borderColor="red";
+						s.innerHTML="你错了";
+					}else{
+						user.style.borderColor="green";
+						s.innerHTML="6666666";
+					}
+				}
+			}
+		</script>
+	</body>
+</html>
